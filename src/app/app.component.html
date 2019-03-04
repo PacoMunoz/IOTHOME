@@ -20,7 +20,15 @@
   <p>{{estadoEstufa2}}</p>
 </div>
 
-<p *ngIf="error" class="error">{{error}}</p>
+<div>
+  <button (click)="leerTemperatura()">Leer Temperatura</button>
+  <div *ngIf="datosSensor" class="alert alert-info ">
+    <strong>{{datosSensor}}</strong>
+  </div>
+</div>
 
+<p *ngIf="errorElemento1" style="width:fit-content" class="alert alert-danger alert-dismissible">{{errorElemento1}}</p>
+<p *ngIf="errorElemento2" style="width:fit-content" class="alert alert-danger alert-dismissible">{{errorElemento2}}</p>
+<p *ngIf="errorElemento3" style="width:fit-content" class="alert alert-danger alert-dismissible">{{errorElemento3}}</p>
 
 <router-outlet></router-outlet>
