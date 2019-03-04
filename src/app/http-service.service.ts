@@ -11,7 +11,7 @@ export class HttpServiceService {
   constructor(private http: HttpClient) {  }
 
   getHttpRequest(url: string){
-    return this.http.get(url);
+    return this.http.get(url,{responseType: 'text'});
   }
 
 }
