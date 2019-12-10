@@ -7,8 +7,6 @@ import { timeout, reject } from 'q';
 import { resolve } from 'url';
 import { stringify } from '@angular/core/src/util';
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +14,7 @@ import { stringify } from '@angular/core/src/util';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
+
   errorElemento1: any;
   errorElemento2: any;
   errorElemento3: any;
@@ -42,11 +40,11 @@ export class AppComponent {
   ngOnInit(){
     this.estadoEstufa1 = 'Estado : indefinido';
     this.estadoEstufa2 = 'Estado : indefinido';
-    //crear un observable con un intervalo y con map ejecuto lo que quiera 
+    //crear un observable con un intervalo y con map ejecuto lo que quiera
     //cada vez que se cumpla el intervalo.
-    //x es el numero de veces que se ha ejecutado el intervalo 
-    let loopLectorSensor = interval(15000).pipe(
-      map((x) => { 
+    //x es el numero de veces que se ha ejecutado el intervalo
+    let loopLectorSensor = interval(30000).pipe(
+      map((x) => {
         //leer y procesar los datos del sensor de temperatura y humedad
         this.httpService.getHttpRequest(this.ipTermometro)
         .subscribe(
@@ -56,12 +54,12 @@ export class AppComponent {
           (error: HttpErrorResponse) => {
             this.procesarErrores(error.message, this.elemento3);
           }
-            
+
         )
       })
     );
-     
-    let loopLectorEstufa1 = interval(10000).pipe(
+
+    let loopLectorEstufa1 = interval(30000).pipe(
       map((x) => {
         this.httpService.getHttpRequest(this.estadoEstufa1URL)
         .subscribe(
@@ -73,7 +71,7 @@ export class AppComponent {
       })
     );
 
-    let loopLectorEstufa2 = interval(10000).pipe(
+    let loopLectorEstufa2 = interval(30000).pipe(
       map((x) => {
         this.httpService.getHttpRequest(this.estadoEstufa2URL)
         .subscribe(
@@ -94,7 +92,7 @@ export class AppComponent {
     this.httpService.getHttpRequest(this.ipTermometro)
     .subscribe(
       (res: string) => this.procesarRespuestaSensorTempHumedad1(res) ,
-      (error: HttpErrorResponse) => this.procesarErrores(error.message, this.elemento3) 
+      (error: HttpErrorResponse) => this.procesarErrores(error.message, this.elemento3)
     )
   }
 
@@ -103,7 +101,7 @@ export class AppComponent {
     this.httpService.getHttpRequest("http://192.168.1.107/gpio/2")
     .subscribe(
       (res: string) => this.procesarRespuestaSensorTempHumedad1(res) ,
-      (error: HttpErrorResponse) => this.procesarErrores(error.message, this.elemento3) 
+      (error: HttpErrorResponse) => this.procesarErrores(error.message, this.elemento3)
     )
   }
 
@@ -146,9 +144,11 @@ export class AppComponent {
   }
 
   procesarRespuestaEstadoEstufas(respuesta: string){
-    let ini = respuesta.indexOf("<html>") + 6;
-    let end = respuesta.indexOf("</html>");
-    return respuesta.substring(ini, end);
+    // let ini = respuesta.indexOf("<html>") + 6;
+    // let end = respuesta.indexOf("</html>");
+    // return respuesta.substring(ini, end);
+    console.log('Respuesta de las estufas correcta: ' + respuesta);
+    return respuesta;
   }
 
   procesarErrores(error: string, elementoError: string){
